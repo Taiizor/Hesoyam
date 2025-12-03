@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/Hesoyam.Sample/Hesoyam.Sample.csproj" Id="5c8c7557-4ad1-49c5-a731-4cb6c16d4363" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="global.json" />
+    <File Path="NuGet.Config" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Hesoyam/Hesoyam.csproj">
+      <Deploy />
+    </Project>
+  </Folder>
+</Solution>

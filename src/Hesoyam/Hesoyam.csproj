@@ -1,0 +1,137 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <UseMaui>true</UseMaui>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <SingleProject>true</SingleProject>
+        <AnalysisLevel>preview</AnalysisLevel>
+        <RootNamespace>Hesoyam</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DefaultLanguage>en-GB</DefaultLanguage>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+        <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFrameworks>net9.0-android35.0;net9.0-ios18.0;net9.0-maccatalyst18.0</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+
+        <TargetFrameworks>$(TargetFrameworks);net10.0-android36.0;net10.0-ios26.0;net10.0-maccatalyst26.0</TargetFrameworks>
+        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    </PropertyGroup>
+
+    <!-- AOT Support -->
+    <PropertyGroup>
+        <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+        <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
+        <PublishAot Condition="'$(RuntimeIdentifier)' != ''">true</PublishAot>
+        <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+        <EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+        <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+        <EnableAotAnalyzer>true</EnableAotAnalyzer>
+        <IsAotCompatible>true</IsAotCompatible>
+        <IlcTrimMetadata>true</IlcTrimMetadata>
+        <IsTrimmable>true</IsTrimmable>
+        <TrimMode>link</TrimMode>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <ApplicationIcon>Resources\Hesoyam.ico</ApplicationIcon>
+        <Version>1.0.1</Version>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Hesoyam - Cross-Platform Background Task Scheduler</Title>
+        <PackageId>Hesoyam</PackageId>
+        <Authors>Taiizor</Authors>
+        <Product>Hesoyam</Product>
+        <Copyright>Copyright © $([System.DateTime]::Today.ToString(yyyy)) $(Authors)</Copyright>
+        <Summary>A powerful cross-platform background task and service scheduler library for .NET MAUI applications with full AOT/Trimming support.</Summary>
+        <Description>Hesoyam is a cross-platform background task scheduler for .NET MAUI that enables scheduling and executing tasks even when the application is closed. Supports Android (WorkManager), iOS (BGTaskScheduler), macOS Catalyst (BGTaskScheduler), and Windows (BackgroundTaskBuilder). Features include periodic/one-shot/immediate scheduling, network/charging/battery constraints, automatic retries with exponential backoff, state persistence across app restarts and device reboots, and full AOT/Trimming compatibility.</Description>
+        <PackageReadmeFile>README.MD</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageLicenseExpression></PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageReleaseNotes>See CHANGELOG.md: https://github.com/Taiizor/Hesoyam/blob/develop/CHANGELOG.md</PackageReleaseNotes>
+        <PackageTags>maui;background-tasks;task-scheduler;background-service;workmanager;bgtaskscheduler;cross-platform;dotnet;csharp;aot;trimming;ios;android;windows;macos;xamarin;hesoyam</PackageTags>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <!--<DocumentationFile>..\$(Title)\bin$(OutputPath)\$(Configuration)\$(TargetFramework)\$(Title).xml</DocumentationFile>-->
+        <PackageProjectUrl>https://github.com/Taiizor/Hesoyam</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git://github.com/Taiizor/Hesoyam</RepositoryUrl>
+        <PackageDescription>$(Description)</PackageDescription>
+        <PackageIcon>Hesoyam.png</PackageIcon>
+        <Company>$(Authors)</Company>
+        <Owners>$(Authors)</Owners>
+        <AnalysisLevel>preview</AnalysisLevel>
+        <LangVersion>preview</LangVersion>
+        <NeutralLanguage>$(DefaultLanguage)</NeutralLanguage>
+        <FileVersion>$(Version)</FileVersion>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <Configurations>Debug;Release</Configurations>
+        <NoWarn>$(NoWarn);1591;CA1873;NU1608</NoWarn>
+        <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    </PropertyGroup>
+
+    <!-- Common dependencies -->
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub">
+            <Version>8.0.0</Version>
+            <PrivateAssets>All</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <!-- Target framework specific dependencies -->
+    <ItemGroup Condition="$(TargetFramework.StartsWith('net9'))" >
+        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.11" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.11" />
+    </ItemGroup>
+
+    <ItemGroup Condition="$(TargetFramework.StartsWith('net10'))" >
+        <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.11" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
+    </ItemGroup>
+
+    <!-- Android-specific dependencies -->
+    <ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+        <PackageReference Include="Xamarin.AndroidX.Work.Runtime" Version="2.11.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.MD">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="..\..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="..\..\CHANGELOG.md">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="Resources\Hesoyam.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Properties\" />
+    </ItemGroup>
+
+</Project>

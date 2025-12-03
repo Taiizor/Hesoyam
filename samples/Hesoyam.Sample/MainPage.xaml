@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Hesoyam.Sample.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:Hesoyam.Sample.ViewModels"
+    Title="Hesoyam Sample"
+    x:DataType="viewmodels:MainViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!--  Header  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="Center"
+                Text="Hesoyam Background Tasks" />
+
+            <Label
+                FontSize="14"
+                HorizontalOptions="Center"
+                Text="Cross-Platform Background Task Scheduler"
+                TextColor="Gray" />
+
+            <!--  Status  -->
+            <Frame
+                Padding="15"
+                BackgroundColor="{AppThemeBinding Light=#f0f0f0,
+                                                  Dark=#2d2d2d}"
+                CornerRadius="8">
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="Center"
+                    Text="{Binding StatusMessage}" />
+            </Frame>
+
+            <!--  Periodic Sync Section  -->
+            <Frame
+                Padding="15"
+                BackgroundColor="{AppThemeBinding Light=#ffffff,
+                                                  Dark=#1e1e1e}"
+                BorderColor="{AppThemeBinding Light=#e0e0e0,
+                                              Dark=#404040}"
+                CornerRadius="8">
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        Text="Periodic Data Sync" />
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Interval (minutes):" VerticalOptions="Center" />
+                        <Entry
+                            Keyboard="Numeric"
+                            Text="{Binding SyncIntervalMinutes}"
+                            WidthRequest="80" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="20">
+                        <HorizontalStackLayout Spacing="5">
+                            <CheckBox IsChecked="{Binding RequiresNetwork}" />
+                            <Label Text="Requires Network" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="5">
+                            <CheckBox IsChecked="{Binding RequiresCharging}" />
+                            <Label Text="Requires Charging" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Button
+                            BackgroundColor="#512BD4"
+                            Command="{Binding SchedulePeriodicSyncCommand}"
+                            IsEnabled="{Binding IsSyncScheduled, Converter={StaticResource InvertedBoolConverter}}"
+                            Text="Schedule Sync"
+                            TextColor="White" />
+
+                        <Button
+                            BackgroundColor="#C62828"
+                            Command="{Binding CancelPeriodicSyncCommand}"
+                            IsEnabled="{Binding IsSyncScheduled}"
+                            Text="Cancel Sync"
+                            TextColor="White" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!--  Quick Actions Section  -->
+            <Frame
+                Padding="15"
+                BackgroundColor="{AppThemeBinding Light=#ffffff,
+                                                  Dark=#1e1e1e}"
+                BorderColor="{AppThemeBinding Light=#e0e0e0,
+                                              Dark=#404040}"
+                CornerRadius="8">
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        Text="Quick Actions" />
+
+                    <FlexLayout JustifyContent="Start" Wrap="Wrap">
+                        <Button
+                            Margin="5"
+                            BackgroundColor="#1976D2"
+                            Command="{Binding RunImmediateSyncCommand}"
+                            Text="Run Immediate Sync"
+                            TextColor="White" />
+
+                        <Button
+                            Margin="5"
+                            BackgroundColor="#388E3C"
+                            Command="{Binding ScheduleCleanupCommand}"
+                            Text="Schedule Cleanup"
+                            TextColor="White" />
+
+                        <Button
+                            Margin="5"
+                            BackgroundColor="#F57C00"
+                            Command="{Binding SendNotificationCommand}"
+                            Text="Send Notification"
+                            TextColor="White" />
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!--  Scheduled Tasks Section  -->
+            <Frame
+                Padding="15"
+                BackgroundColor="{AppThemeBinding Light=#ffffff,
+                                                  Dark=#1e1e1e}"
+                BorderColor="{AppThemeBinding Light=#e0e0e0,
+                                              Dark=#404040}"
+                CornerRadius="8">
+                <VerticalStackLayout Spacing="10">
+                    <HorizontalStackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="StartAndExpand"
+                            Text="Scheduled Tasks" />
+                        <Button
+                            Padding="10,0"
+                            BackgroundColor="#757575"
+                            Command="{Binding RefreshScheduledTasksCommand}"
+                            HeightRequest="35"
+                            Text="Refresh"
+                            TextColor="White" />
+                    </HorizontalStackLayout>
+
+                    <CollectionView
+                        EmptyView="No scheduled tasks"
+                        HeightRequest="100"
+                        ItemsSource="{Binding ScheduledTasks}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Label
+                                    Padding="5"
+                                    FontSize="14"
+                                    Text="{Binding .}" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button
+                        BackgroundColor="#C62828"
+                        Command="{Binding CancelAllTasksCommand}"
+                        Text="Cancel All Tasks"
+                        TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!--  Task Logs Section  -->
+            <Frame
+                Padding="15"
+                BackgroundColor="{AppThemeBinding Light=#ffffff,
+                                                  Dark=#1e1e1e}"
+                BorderColor="{AppThemeBinding Light=#e0e0e0,
+                                              Dark=#404040}"
+                CornerRadius="8">
+                <VerticalStackLayout Spacing="10">
+                    <HorizontalStackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HorizontalOptions="StartAndExpand"
+                            Text="Task Logs" />
+                        <Button
+                            Padding="10,0"
+                            BackgroundColor="#757575"
+                            Command="{Binding ClearLogsCommand}"
+                            HeightRequest="35"
+                            Text="Clear"
+                            TextColor="White" />
+                    </HorizontalStackLayout>
+
+                    <CollectionView
+                        EmptyView="No logs yet"
+                        HeightRequest="150"
+                        ItemsSource="{Binding TaskLogs}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Label
+                                    Padding="5"
+                                    FontFamily="Consolas"
+                                    FontSize="12"
+                                    Text="{Binding .}" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,10 @@
+{
+    "profiles": {
+        "Windows Machine": {
+            "sqlDebugging": false,
+            "nativeDebugging": true,
+            "commandName": "Project",
+            "jsWebView2Debugging": false
+        }
+    }
+}

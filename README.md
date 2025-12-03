@@ -11,7 +11,7 @@
   <a href="https://www.nuget.org/packages/Hesoyam">
     <img alt="NuGet Downloads" src="https://img.shields.io/nuget/dt/Hesoyam?style=flat-square&logo=nuget">
   </a>
-  <a href="https://github.com/Taiizor/Hesoyam/blob/main/LICENSE">
+  <a href="https://github.com/Taiizor/Hesoyam/blob/develop/LICENSE">
     <img alt="License" src="https://img.shields.io/github/license/Taiizor/Hesoyam?style=flat-square">
   </a>
 </p>

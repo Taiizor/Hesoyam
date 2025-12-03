@@ -29,13 +29,13 @@ namespace Hesoyam.Platforms.Windows
             // Use LocalApplicationData which works for both packaged and unpackaged apps
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string hesoyamFolder = Path.Combine(appDataPath, "Hesoyam");
-            
+
             // Ensure directory exists
             if (!Directory.Exists(hesoyamFolder))
             {
                 Directory.CreateDirectory(hesoyamFolder);
             }
-            
+
             _filePath = Path.Combine(hesoyamFolder, "preferences.json");
         }
 
